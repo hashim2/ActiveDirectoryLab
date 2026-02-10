@@ -51,6 +51,16 @@ The Windows 10 client is connected only to the internal network, receives its IP
 
 This architecture mirrors a common enterprise Active Directory deployment by separating external and internal traffic while maintaining centralized domain services.</p>
 
+
+
+
+**ACTIVE DIRECTORY USERS AND COMPUTERS (ADUC)**
+
+<img width="754" height="530" alt="AD users and computers" src="https://github.com/user-attachments/assets/85db8141-da7c-4f7e-af8a-69f013e74101" />
+
+This view confirms the domain mydomain.com is active and that test user accounts have been created. It demonstrates that the lab’s core AD functionality is operational.
+
+
 <!--
  ```diff
 - text in red
