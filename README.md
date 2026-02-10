@@ -86,6 +86,9 @@ The Domain Controller is configured with two network interfaces:
 - **This confirms that internal name resolution and network connectivity are working in the lab, with CLIENT1.mydomain.com reachable over the internal network.**
 
 
+**CONCLUSION**
+- This lab demonstrates a fully functional Active Directory environment with a domain controller and a domain-joined client. Core services including authentication, DHCP, DNS, and centralized management are operational, validating end-to-end AD functionality.
+
   <!--
  ```diff
 - text in red
