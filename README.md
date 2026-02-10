@@ -73,8 +73,20 @@ The Domain Controller is configured with two network interfaces:
 
 - This validates that the Windows 10 client receives DHCP configuration, resolves the domain controller via DNS, and can communicate with DC01.mydomain.com, confirming core network functionality of the lab.
 
-  
-<!--
+**REGISTERED DOMAIN-COMPUTERS**
+
+<img width="986" height="550" alt="Client1 ADUC" src="https://github.com/user-attachments/assets/6d7d7abd-abca-4fbb-b88a-df1aa7a1c0a2" />
+
+- The Windows 10 client CLIENT1 is listed in Active Directory, confirming it is joined to the domain and centrally managed by the domain controller.
+
+**PING INTERNAL CLIENT**
+
+<img width="1001" height="552" alt="ping client 1 domain" src="https://github.com/user-attachments/assets/de93881e-51df-4704-b6fa-4201b504f6bd" />
+
+- **This confirms that internal name resolution and network connectivity are working in the lab, with CLIENT1.mydomain.com reachable over the internal network.**
+
+
+  <!--
  ```diff
 - text in red
 + text in green
