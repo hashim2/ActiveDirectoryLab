@@ -1,6 +1,6 @@
 <h1> - Active Directory Home Lab</h1>
 
- ### [YouTube Demonstration](https://youtu.be/7eJexJVCqJo)
+ 
 
 <h2>Description</h2>
 This repository walks through the setup of an Active Directory home lab using Oracle VirtualBox. The lab covers core concepts such as installing Active Directory Domain Services, creating a domain, managing users and organizational units, and joining client machines to the domain.
