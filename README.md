@@ -2,9 +2,13 @@
 
 ## Overview
 
-Hands-on setup of an Active Directory environment using Oracle VirtualBox.
-Covers installing AD DS, configuring domain services, managing users and
-OUs, and joining client machines to the domain.
+This repository walks through the setup of an Active Directory home lab
+using Oracle VirtualBox. The lab covers installing Active Directory Domain
+Services, creating a domain, managing users and organizational units, and
+joining client machines to the domain.
+
+Completing this lab provides hands-on experience with Windows networking
+and AD management, reinforcing practical IT skills in a controlled environment.
 
 ---
 
@@ -24,8 +28,9 @@ OUs, and joining client machines to the domain.
 
 <img width="640" alt="Lab Architecture Overview" src="https://github.com/user-attachments/assets/a718e789-19f3-4b95-a3cf-c7cf8f311352" />
 
-The lab simulates a small enterprise Windows domain with a Domain Controller
-and a Windows 10 client connected through an internal virtual network.
+This diagram illustrates the logical design of the lab, built to simulate
+a small enterprise Windows domain environment with centralized identity
+and network services.
 
 **Domain Controller (Windows Server 2019)**
 
@@ -43,19 +48,20 @@ Services hosted on the Domain Controller:
 | AD DS | Centralized authentication and user management |
 | DNS | Internal name resolution |
 | DHCP | IP assignment — scope 172.16.0.100–172.16.0.200 |
-| RAS/NAT | Internal clients routed to internet |
+| RAS/NAT | Routes internal clients to the internet |
 | PowerShell | Bulk user creation automation |
 
 **Client Machine (Windows 10)**
 
-Connected only to the internal network. Receives IP from DHCP and is joined
-to the domain. Used to validate authentication, DNS, DHCP, and Group Policy.
+Connected only to the internal network. Receives IP from DHCP and is
+joined to the domain. Used to validate authentication, DNS, DHCP, and
+Group Policy application.
 
 ---
 
 ## 📸 Lab Walkthrough
 
-### 1. Active Directory Users and Computers (ADUC)
+### 1. Active Directory Users and Computers
 
 <img width="754" alt="AD Users and Computers" src="https://github.com/user-attachments/assets/85db8141-da7c-4f7e-af8a-69f013e74101" />
 
@@ -96,7 +102,7 @@ domain and centrally managed by the domain controller.
 <img width="1001" alt="Ping CLIENT1 Domain" src="https://github.com/user-attachments/assets/de93881e-51df-4704-b6fa-4201b504f6bd" />
 
 `CLIENT1.mydomain.com` is reachable over the internal network, confirming
-that internal name resolution and network connectivity are fully operational.
+internal name resolution and network connectivity are fully operational.
 
 ---
 
