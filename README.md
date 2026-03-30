@@ -1,100 +1,119 @@
-<h1> - Active Directory Home Lab</h1>
+# 🖥️ Active Directory Home Lab
 
- 
+## Overview
 
-<h2>Description</h2>
-This repository walks through the setup of an Active Directory home lab using Oracle VirtualBox. The lab covers core concepts such as installing Active Directory Domain Services, creating a domain, managing users and organizational units, and joining client machines to the domain.
-Completing this lab provides hands-on experience with Windows networking and AD management, making it a great way to practice and reinforce practical IT skills in a controlled environment.
+Hands-on setup of an Active Directory environment using Oracle VirtualBox.
+Covers installing AD DS, configuring domain services, managing users and
+OUs, and joining client machines to the domain.
 
-<br />
+---
 
+## 🧰 Lab Environment
 
-<h2>Languages and Utilities Used</h2>
+| Field | Value |
+|---|---|
+| **Hypervisor** | Oracle VirtualBox |
+| **Domain Controller** | Windows Server 2019 |
+| **Client Machine** | Windows 10 (21H2) |
+| **Domain** | mydomain.com |
+| **Automation** | PowerShell |
 
-- <b>PowerShell</b> 
-- <b>Oracle Virtual Box</b>
+---
 
-<h2>Environments Used </h2>
+## 🏗️ Lab Architecture
 
-- <b>Windows 10</b> (21H2)
-- <b>Server 2019
+<img width="640" alt="Lab Architecture Overview" src="https://github.com/user-attachments/assets/a718e789-19f3-4b95-a3cf-c7cf8f311352" />
 
-<h2>Program walk-through:</h2>
-<img width="640" height="360" alt="Internet" src="https://github.com/user-attachments/assets/a718e789-19f3-4b95-a3cf-c7cf8f311352" />
+The lab simulates a small enterprise Windows domain with a Domain Controller
+and a Windows 10 client connected through an internal virtual network.
 
-**LAB ARCHITECTURE OVERVIEW**
+**Domain Controller (Windows Server 2019)**
 
-- This diagram illustrates the logical design of my Active Directory home lab, built to simulate a small enterprise Windows domain environment with centralized identity and network services.
-The lab consists of a Windows Server 2019 Domain Controller and a Windows 10 client hosted in VirtualBox and connected through an internal virtual network.
+Configured with two network interfaces:
 
-**DOMAIN CONTROLLER (WINDOWS SERVER 2019)**
+| Interface | Purpose |
+|---|---|
+| External NIC | Outbound internet access |
+| Internal NIC | Static IP 172.16.0.1/24 — serves the internal domain |
 
-The Domain Controller is configured with two network interfaces:
+Services hosted on the Domain Controller:
 
-- External NIC (Internet) providing outbound internet access
+| Service | Role |
+|---|---|
+| AD DS | Centralized authentication and user management |
+| DNS | Internal name resolution |
+| DHCP | IP assignment — scope 172.16.0.100–172.16.0.200 |
+| RAS/NAT | Internal clients routed to internet |
+| PowerShell | Bulk user creation automation |
 
-- Internal NIC (Internal Network) using a static IP address (172.16.0.1/24) to serve the internal domain
+**Client Machine (Windows 10)**
 
-**THE DOMAIN CONTROLLER HOSTS THE FOLLOWING SERVICES:**
+Connected only to the internal network. Receives IP from DHCP and is joined
+to the domain. Used to validate authentication, DNS, DHCP, and Group Policy.
 
-- Active Directory Domain Services (AD DS) for centralized authentication and management
-- DNS for internal name resolution
-- DHCP with a single scope (172.16.0.100–172.16.0.200) for client IP assignment
-- Routing and Remote Access (RAS/NAT) to allow internal clients internet access
-- PowerShell automation used to bulk-create test users
+---
 
-**CLIENT MACHINE (WINDOWS 10)**
+## 📸 Lab Walkthrough
 
-- The Windows 10 client is connected only to the internal network, receives its IP configuration from DHCP, and is joined to the domain. It is used to validate authentication, DNS resolution, DHCP leasing, and Group Policy application.
+### 1. Active Directory Users and Computers (ADUC)
 
-**DESIGN PURPOSE**
+<img width="754" alt="AD Users and Computers" src="https://github.com/user-attachments/assets/85db8141-da7c-4f7e-af8a-69f013e74101" />
 
-- This architecture mirrors a common enterprise Active Directory deployment by separating external and internal traffic while maintaining centralized domain services.</p>
+Confirms that `mydomain.com` is active and test user accounts have been
+created, validating core AD functionality is operational.
 
+---
 
+### 2. Domain-Joined Client
 
+<img width="1024" alt="Windows 10 Client Domain Join" src="https://github.com/user-attachments/assets/bf827dbe-5ae9-4d7d-a0a3-09fd7e7964a3" />
 
-**ACTIVE DIRECTORY USERS AND COMPUTERS (ADUC)**
+Confirms the Windows 10 client is joined to `mydomain.com`, validating
+that DHCP, DNS, and domain authentication are functioning correctly.
 
-<img width="754" height="530" alt="AD users and computers" src="https://github.com/user-attachments/assets/85db8141-da7c-4f7e-af8a-69f013e74101" />
+---
 
-- This view confirms the domain mydomain.com is active and that test user accounts have been created. It demonstrates that the lab’s core AD functionality is operational.
+### 3. Windows 10 IP & DNS Details
 
+<img width="1024" alt="ipconfig Client1" src="https://github.com/user-attachments/assets/f4b240c8-5ff0-4ebd-9944-ce80d998a3d8" />
 
-**DOMAIN-JOINED CLIENT**
+Validates that the client receives a DHCP-assigned IP, resolves the domain
+controller via DNS, and can communicate with `DC01.mydomain.com`.
 
-<img width="1024" height="728" alt="Win10 Client" src="https://github.com/user-attachments/assets/bf827dbe-5ae9-4d7d-a0a3-09fd7e7964a3" />
+---
 
-- This confirms the Windows 10 client is joined to the mydomain.com domain, validating that DHCP, DNS, and domain authentication are functioning correctly.
+### 4. Registered Domain Computers
 
+<img width="986" alt="Client1 in ADUC" src="https://github.com/user-attachments/assets/6d7d7abd-abca-4fbb-b88a-df1aa7a1c0a2" />
 
-**WINDOWS 10 IP & DNS DETAILS**
-<img width="1024" height="728" alt="ipconfig client1" src="https://github.com/user-attachments/assets/f4b240c8-5ff0-4ebd-9944-ce80d998a3d8" />
+`CLIENT1` is listed in Active Directory, confirming it is joined to the
+domain and centrally managed by the domain controller.
 
-- This validates that the Windows 10 client receives DHCP configuration, resolves the domain controller via DNS, and can communicate with DC01.mydomain.com, confirming core network functionality of the lab.
+---
 
-**REGISTERED DOMAIN-COMPUTERS**
+### 5. Ping Internal Client
 
-<img width="986" height="550" alt="Client1 ADUC" src="https://github.com/user-attachments/assets/6d7d7abd-abca-4fbb-b88a-df1aa7a1c0a2" />
+<img width="1001" alt="Ping CLIENT1 Domain" src="https://github.com/user-attachments/assets/de93881e-51df-4704-b6fa-4201b504f6bd" />
 
-- The Windows 10 client CLIENT1 is listed in Active Directory, confirming it is joined to the domain and centrally managed by the domain controller.
+`CLIENT1.mydomain.com` is reachable over the internal network, confirming
+that internal name resolution and network connectivity are fully operational.
 
-**PING INTERNAL CLIENT**
+---
 
-<img width="1001" height="552" alt="ping client 1 domain" src="https://github.com/user-attachments/assets/de93881e-51df-4704-b6fa-4201b504f6bd" />
+## 🛠️ Skills Demonstrated
 
-- **This confirms that internal name resolution and network connectivity are working in the lab, with CLIENT1.mydomain.com reachable over the internal network.**
+- Active Directory Domain Services installation and configuration
+- DNS and DHCP setup and validation
+- OU structure and user account management
+- PowerShell automation for bulk user creation
+- Client domain join and Group Policy validation
+- RAS/NAT configuration for internal network routing
+- End-to-end network troubleshooting (ipconfig, ping, nslookup)
 
+---
 
-**CONCLUSION**
-- This lab demonstrates a fully functional Active Directory environment with a domain controller and a domain-joined client. Core services including authentication, DHCP, DNS, and centralized management are operational, validating end-to-end AD functionality.
+## ✅ Conclusion
 
-  <!--
- ```diff
-- text in red
-+ text in green
-! text in orange
-# text in gray
-@@ text in purple (and bold)@@
-```
---!>
+Fully functional Active Directory environment with a domain controller and
+domain-joined client. Core services including authentication, DHCP, DNS,
+and centralized management are all operational and validated end-to-end.
